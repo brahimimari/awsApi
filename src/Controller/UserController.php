@@ -24,6 +24,14 @@ class UserController extends AbstractController
         $this->user = $user;
     }
 
+
+    //Add user
+    #[Route('/', name: 'index')]
+    public function index(Request $request): Response
+    {
+        return new Response('Hello Word ');
+    }
+
     //Add user
     #[Route('/userCreate', name: 'user_create', methods: 'POST')]
     public function userCreate(Request $request): Response
@@ -61,6 +69,9 @@ class UserController extends AbstractController
     public function getAllUsers(): Response
     {
         $users = $this->user->findAll();
-        return $this->json($users, 200);
+        return $this->json(
+            $users,
+            headers: ['Content-Type' => 'application/json;charset=UTF-8']
+        );
     }
 }

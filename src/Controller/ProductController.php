@@ -31,7 +31,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/api/product/{id}', name: 'product_show')]
-    public function show(EntityManagerInterface $entityManager, int $id): Response
+    public function showProduct(EntityManagerInterface $entityManager, int $id): Response
     {
         $product = $entityManager->getRepository(Product::class)->find($id);
 
@@ -40,7 +40,9 @@ class ProductController extends AbstractController
                 'No product found for id ' . $id
             );
         }
-
-        return new Response('Check out this great product: ' . $product->getName() . " - price :" . $product->getprice());
+        return $this->json(
+            $product,
+            headers: ['Content-Type' => 'application/json;charset=UTF-8']
+        );
     }
 }
